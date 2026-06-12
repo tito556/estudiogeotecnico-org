@@ -1,65 +1,16 @@
 <!DOCTYPE html><html lang="es"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sismos recientes en España — monitor sísmico · Estudio Geotécnico</title><meta name="description" content="Sismos recientes en España del catálogo USGS, contrastados con Instituto Geográfico Nacional (IGN) — vía EMSC."><meta name="theme-color" content="#0A2540">
+<title>Sismos recientes en España — monitor sísmico · Estudio Geotécnico</title><link rel="preload" as="image" href="img/instrumentacion-geotecnica-langes-4.webp" fetchpriority="high"><meta name="description" content="Sismos recientes en España del catálogo USGS, contrastados con Instituto Geográfico Nacional (IGN) — vía EMSC."><meta name="theme-color" content="#0A2540">
 <link rel="canonical" href="https://estudiogeotecnico.org/blog/sismos/">
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<style>:root{--primary:#0A2540;--accent:#1e3a5f;--bg:#f9fafb;--border:#e5e7eb;--muted:#64748b;--font-body:'Source Sans 3',sans-serif;--font-h:'Source Serif 4',Georgia,serif}
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-body);line-height:1.65;color:#1f2937;background:var(--bg)}a{color:var(--accent)}.container{max-width:1100px;margin:0 auto;padding:0 24px}
+<link rel="stylesheet" href="/css/leaflet-6a3c.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/css/leaflet-6a3c.css"></noscript>
+<style>:root{--primary:#0A2540;--accent:#1e3a5f;--bg:#f9fafb;--border:#e5e7eb;--muted:#64748b;--font-body:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;--font-h:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;margin:0;padding:0}body{font-family:var(--font-body);line-height:1.65;color:#1f2937;background:var(--bg)}a{color:var(--accent)}.container{max-width:1100px;margin:0 auto;padding:0 24px}
 header{background:var(--primary);color:#fff;padding:18px 0}header .container{display:flex;align-items:center;justify-content:space-between}header a{color:#fff;text-decoration:none}header .brand{font-family:var(--font-h);font-size:1.2rem;font-weight:700}header nav{display:flex;gap:16px;font-size:.92rem}
 .hero{background:linear-gradient(135deg,#0A2540,#1e3a5f);color:#fff;padding:56px 0 36px}.hero h1{font-family:var(--font-h);font-size:2.2rem;margin-bottom:12px}.hero p{color:#bcd;max-width:720px}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin:24px 0}.stat{background:#fff;border:1px solid var(--border);border-radius:8px;padding:18px;text-align:center}.stat-num{font-size:1.8rem;font-weight:700;color:var(--primary);font-family:var(--font-h)}.stat-label{font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:4px}
 main{padding:38px 0 60px}.posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}footer{background:#0f172a;color:#cbd5e1;padding:26px 0;font-size:.88rem;margin-top:36px}footer a{color:#fff}</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Blog", "name": "Sismos recientes en España — monitor sísmico", "inLanguage": "es", "url": "https://estudiogeotecnico.org/blog/sismos/", "publisher": {"@type": "Organization", "name": "Estudio Geotécnico"}, "blogPost": {"@type": "ItemList", "numberOfItems": 19}}</script>
-<style id="ftr-fix">footer .container>div{min-width:0}footer p,footer a{overflow-wrap:anywhere;word-break:break-word}</style><!--selfhost-fonts--><link rel="preload" href="fonts/ibm-plex-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high"><style>@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url(fonts/ibm-plex-sans-400-latin-ext.woff2) format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url(fonts/ibm-plex-sans-400-latin.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url(fonts/ibm-plex-sans-600-latin-ext.woff2) format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url(fonts/ibm-plex-sans-600-latin.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url(fonts/ibm-plex-sans-700-latin-ext.woff2) format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url(fonts/ibm-plex-sans-700-latin.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}</style></head><body><header><div class="container"><a href="/" class="brand">Estudio Geotécnico</a><nav><a href="/">Inicio</a><a href="/blog/sismos/">Sismos</a></nav></div></header>
+<style id="ftr-fix">footer .container>div{min-width:0}footer p,footer a{overflow-wrap:anywhere;word-break:break-word}</style><!--selfhost-fonts--><style></style></head><body><header><div class="container"><a href="/" class="brand">Estudio Geotécnico</a><nav><a href="/">Inicio</a><a href="/blog/sismos/">Sismos</a></nav></div></header>
 <section class="hero"><div class="container"><h1>Sismos recientes en España</h1><p>Eventos sísmicos en España del período reciente, con datos del catálogo USGS y del organismo nacional Instituto Geográfico Nacional (IGN) — vía EMSC. Magnitud, profundidad, epicentro y contexto geotécnico de cada evento.</p></div></section>
 <main><div class="container"><div class="stats">
 <div class="stat"><div class="stat-num">19</div><div class="stat-label">Sismos</div></div>
@@ -68,7 +19,7 @@ main{padding:38px 0 60px}.posts{display:grid;grid-template-columns:repeat(auto-f
 <div class="stat"><div class="stat-num">23 May</div><div class="stat-label">Último</div></div></div>
 <h2 style="font-family:Georgia,serif;margin:24px 0 12px;border-bottom:2px solid #0A2540;padding-bottom:6px;display:inline-block">Mapa de epicentros</h2>
 <div id="s-map" style="height:460px;width:100%;border-radius:12px;border:1px solid #e5e7eb;margin-bottom:30px"></div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/js/leaflet-6a3c.js" defer></script>
 <script>(function(){var el=document.getElementById('s-map');if(!el||!window.L)return;var map=L.map('s-map').setView([39.5,-3.0],4);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OSM',maxZoom:12}).addTo(map);
 var marks=[[35.8375,-7.5556,4.0,"Strait Of Gibraltar","sismo-strait-of-gibraltar-m4-0-23-may-2026"],
